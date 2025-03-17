@@ -18,7 +18,7 @@ export default function HomeBottomTabNavigation({navigation}:any){
                 if(route.name==='Menu') iconName = focused? 'menu':'menu-outline';
                 else if(route.name==='Cart') iconName = focused? 'cart':'cart-outline';
                 else if(route.name==='Home') iconName = focused? 'home':'home-outline';
-                else if(route.name==='Bookmark') iconName = focused? 'heart':'heart-outline';
+                else if(route.name==='Bookmarks') iconName = focused? 'heart':'heart-outline';
                 else if(route.name==='Products') iconName = focused? 'grid':'grid-outline';
                 // @ts-ignore
                 return <Ionicons name={iconName} size={22} color={color}/>
