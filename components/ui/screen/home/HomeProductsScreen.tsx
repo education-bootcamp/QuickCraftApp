@@ -7,11 +7,7 @@ import ProductListViewWidget from "@/components/ui/screen/home/widget/ProductLis
 
 export default function HomeProductsScreen() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [isGridEnabled, setIsGridEnabled] = useState(false);
-    const manageGridView=({state}:any)=>{
-        setIsGridEnabled(state);
-        console.log(isGridEnabled);
-    }
+    const [isGridEnabled, setIsGridEnabled] = useState(true);
     return (
         <View style={styles.container}>
             <Searchbar
@@ -19,7 +15,7 @@ export default function HomeProductsScreen() {
                 onChangeText={setSearchQuery}
                 value={searchQuery}
             />
-            <DisplayTypeWidget callBack={manageGridView}/>
+            <DisplayTypeWidget callback={(state:boolean)=>setIsGridEnabled(state)}/>
 
             {isGridEnabled?(
                 <ScrollView

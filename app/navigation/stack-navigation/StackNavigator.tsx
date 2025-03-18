@@ -3,12 +3,13 @@ import HomeBottomTabNavigation from "@/app/navigation/tab-navigation/HomeBottomT
 import CustomercareScreen from "@/components/ui/screen/other/CustomercareScreen";
 import DailyDealsScreen from "@/components/ui/screen/other/DailyDealsScreen";
 import LatestProductsScreen from "@/components/ui/screen/other/LatestProductsScreen";
-import MyOrderScreen from "@/components/ui/screen/other/MyOrderScreen";
+import MyOrderScreen from "@/components/ui/screen/other/orders/MyOrderScreen";
 import NotificationsScreen from "@/components/ui/screen/other/NotificationsScreen";
 import ProfileScreen from "@/components/ui/screen/other/ProfileScreen";
 import SettingsScreen from "@/components/ui/screen/other/SettingsScreen";
 import VouchersScreen from "@/components/ui/screen/other/VouchersScreen";
 import LoginScreen from "@/components/ui/screen/security/LoginScreen";
+import MyOrdersTopTabNavigator from "@/app/navigation/tab-navigation/MyOrdersTopTabNavigator";
 const Stack = createStackNavigator();
 export default function StackNavigator(){
 return(
@@ -27,7 +28,7 @@ return(
                       component={LatestProductsScreen}/>
         <Stack.Screen name={'MyOrder'}
                       options={{title:'My Order'}}
-                      component={MyOrderScreen}/>
+                      component={MyOrdersTopTabNavigator}/>
         <Stack.Screen name={'Notifications'}
                       options={{title:'Notifications'}}
                       component={NotificationsScreen}/>
