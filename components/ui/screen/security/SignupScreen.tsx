@@ -4,8 +4,9 @@ import {Icon, TextInput} from "react-native-paper";
 import {useState} from "react";
 
 const logo = require('../../../../assets/images/logo/logo-wattpad.png');
-export default function LoginScreen({navigation}:any) {
+export default function SignupScreen({navigation}:any) {
     const [email, setEmail] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [passwordDisplayState, setPasswordDisplayState] = useState(false);
     const [password, setPassword] = useState('');
     return (
@@ -32,33 +33,23 @@ export default function LoginScreen({navigation}:any) {
                         }} size={20} icon={passwordDisplayState ? 'eye' : 'eye-off'}/>}
                     />
                 </View>
-                <TouchableOpacity
-                    onPress={()=>navigation.navigate('ChangePassword')}
-                    style={styles.forgotPasswordButton}>
-                    <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginText}>Login</Text>
-                </TouchableOpacity>
-                <Text style={styles.separateText}>OR</Text>
-                <View style={styles.socialLoginWrapper}>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'google'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'facebook'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'twitter'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'github'}/>
-                    </TouchableOpacity>
+                <View style={styles.formGroup}>
+                    <TextInput
+                        label="Display Name"
+                        value={displayName}
+                        onChangeText={text => setDisplayName(text)}
+                    />
                 </View>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('Signup')}
+                    onPress={()=>navigation.navigate('SignupVerifyEmail')}
+                    style={styles.loginButton}>
+                    <Text style={styles.loginText}>Register</Text>
+                </TouchableOpacity>
+                <Text style={styles.separateText}>OR</Text>
+                <TouchableOpacity
+                    onPress={()=>navigation.navigate('Login')}
                     style={{...styles.loginButton,backgroundColor:COLORS.primary}}>
-                    <Text style={styles.loginText}>Register with the email</Text>
+                    <Text style={styles.loginText}>Already have an account?</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

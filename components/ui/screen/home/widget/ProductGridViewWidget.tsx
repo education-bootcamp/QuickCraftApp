@@ -2,9 +2,11 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {COLORS} from "@/constants/CollorPallet";
 import {Icon} from "react-native-paper";
 
-export default function ProductGridViewWidget() {
+export default function ProductGridViewWidget({navigation}:any) {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity
+            onPress={()=>navigation.navigate('ProductDetails')}
+            style={styles.container}>
             <View style={styles.imageView}>
                 <TouchableOpacity style={styles.bookmarkButton}>
                     <Icon size={20} source={'heart-outline'} color={COLORS.light}/>

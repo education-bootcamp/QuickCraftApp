@@ -4,23 +4,17 @@ import {Icon, TextInput} from "react-native-paper";
 import {useState} from "react";
 
 const logo = require('../../../../assets/images/logo/logo-wattpad.png');
-export default function LoginScreen({navigation}:any) {
+export default function ResetPasswordScreen({navigation}:any) {
     const [email, setEmail] = useState('');
     const [passwordDisplayState, setPasswordDisplayState] = useState(false);
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     return (
         <ScrollView style={styles.container}>
             <View style={styles.logoWrapper}>
                 <Image source={logo} style={styles.logo} resizeMode={'contain'}/>
             </View>
             <View style={styles.inputOuter}>
-                <View style={styles.formGroup}>
-                    <TextInput
-                        label="Root Email"
-                        value={email}
-                        onChangeText={text => setEmail(text)}
-                    />
-                </View>
                 <View style={styles.formGroup}>
                     <TextInput
                         label="Password"
@@ -32,33 +26,21 @@ export default function LoginScreen({navigation}:any) {
                         }} size={20} icon={passwordDisplayState ? 'eye' : 'eye-off'}/>}
                     />
                 </View>
-                <TouchableOpacity
-                    onPress={()=>navigation.navigate('ChangePassword')}
-                    style={styles.forgotPasswordButton}>
-                    <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginText}>Login</Text>
-                </TouchableOpacity>
-                <Text style={styles.separateText}>OR</Text>
-                <View style={styles.socialLoginWrapper}>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'google'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'facebook'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'twitter'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'github'}/>
-                    </TouchableOpacity>
+                <View style={styles.formGroup}>
+                    <TextInput
+                        label="Confirm Password"
+                        secureTextEntry={!passwordDisplayState}
+                        value={confirmPassword}
+                        onChangeText={text => setConfirmPassword(text)}
+                        right={<TextInput.Icon onPress={() => {
+                            setPasswordDisplayState(!passwordDisplayState)
+                        }} size={20} icon={passwordDisplayState ? 'eye' : 'eye-off'}/>}
+                    />
                 </View>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('Signup')}
-                    style={{...styles.loginButton,backgroundColor:COLORS.primary}}>
-                    <Text style={styles.loginText}>Register with the email</Text>
+                    onPress={()=>navigation.navigate('Login')}
+                    style={styles.loginButton}>
+                    <Text style={styles.loginText}>Reset Password</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

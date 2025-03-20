@@ -5,7 +5,7 @@ import DisplayTypeWidget from "@/components/ui/screen/share/DisplayTypeWidget";
 import ProductGridViewWidget from "@/components/ui/screen/home/widget/ProductGridViewWidget";
 import ProductListViewWidget from "@/components/ui/screen/home/widget/ProductListViewWidget";
 
-export default function HomeProductsScreen() {
+export default function HomeProductsScreen({navigation}:any) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isGridEnabled, setIsGridEnabled] = useState(true);
     return (
@@ -21,21 +21,13 @@ export default function HomeProductsScreen() {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                 >
-                    <ProductGridViewWidget/>
-                    <ProductGridViewWidget/>
-                    <ProductGridViewWidget/>
-                    <ProductGridViewWidget/>
-                    <ProductGridViewWidget/>
+                    <ProductGridViewWidget navigation={navigation}/>
                 </ScrollView>
             ):(
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                 >
-                    <ProductListViewWidget/>
-                    <ProductListViewWidget/>
-                    <ProductListViewWidget/>
-                    <ProductListViewWidget/>
-                    <ProductListViewWidget/>
+                    <ProductListViewWidget navigation={navigation}/>
                 </ScrollView>
             )}
         </View>

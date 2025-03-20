@@ -4,10 +4,8 @@ import {Icon, TextInput} from "react-native-paper";
 import {useState} from "react";
 
 const logo = require('../../../../assets/images/logo/logo-wattpad.png');
-export default function LoginScreen({navigation}:any) {
-    const [email, setEmail] = useState('');
-    const [passwordDisplayState, setPasswordDisplayState] = useState(false);
-    const [password, setPassword] = useState('');
+export default function ResetPasswordVerifyEmailScreen({navigation}:any) {
+    const [otp, setOtp] = useState('');
     return (
         <ScrollView style={styles.container}>
             <View style={styles.logoWrapper}>
@@ -16,49 +14,26 @@ export default function LoginScreen({navigation}:any) {
             <View style={styles.inputOuter}>
                 <View style={styles.formGroup}>
                     <TextInput
-                        label="Root Email"
-                        value={email}
-                        onChangeText={text => setEmail(text)}
-                    />
-                </View>
-                <View style={styles.formGroup}>
-                    <TextInput
-                        label="Password"
-                        secureTextEntry={!passwordDisplayState}
-                        value={password}
-                        onChangeText={text => setPassword(text)}
-                        right={<TextInput.Icon onPress={() => {
-                            setPasswordDisplayState(!passwordDisplayState)
-                        }} size={20} icon={passwordDisplayState ? 'eye' : 'eye-off'}/>}
+                        label="OTP"
+                        value={otp}
+                        keyboardType={'decimal-pad'}
+                        onChangeText={text => setOtp(text)}
                     />
                 </View>
                 <TouchableOpacity
                     onPress={()=>navigation.navigate('ChangePassword')}
                     style={styles.forgotPasswordButton}>
-                    <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+                    <Text style={styles.forgotPasswordText}>Change Email</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginText}>Login</Text>
-                </TouchableOpacity>
-                <Text style={styles.separateText}>OR</Text>
-                <View style={styles.socialLoginWrapper}>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'google'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'facebook'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'twitter'}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.iconOuter}>
-                        <Icon size={20} source={'github'}/>
-                    </TouchableOpacity>
-                </View>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('Signup')}
-                    style={{...styles.loginButton,backgroundColor:COLORS.primary}}>
-                    <Text style={styles.loginText}>Register with the email</Text>
+                    onPress={()=>{}}
+                    style={styles.forgotPasswordButton}>
+                    <Text style={styles.forgotPasswordText}>(30) Resend email</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={()=>navigation.navigate('ResetPassword')}
+                    style={styles.loginButton}>
+                    <Text style={styles.loginText}>Verify</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
