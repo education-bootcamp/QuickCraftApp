@@ -2,13 +2,35 @@ import {View, Text, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react
 import {COLORS} from "@/constants/CollorPallet";
 import {Icon, TextInput} from "react-native-paper";
 import {useState} from "react";
+import axios from "axios";
+import getBaseUrl from "@/constants/BASEURL";
 
 const logo = require('../../../../assets/images/logo/logo-wattpad.png');
-export default function SignupScreen({navigation}:any) {
+export default function SignupScreen({navigation}: any) {
     const [email, setEmail] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [passwordDisplayState, setPasswordDisplayState] = useState(false);
     const [password, setPassword] = useState('');
+
+    const handleRegister = async () => {
+        try{
+            const response= await axios.post(`${getBaseUrl()}users/create-user`,{
+                username:email,
+                displayName,
+                password,
+                roles:['ADMIN'],
+                isActive:false
+            });
+            if(response.status===201){
+                navigation.navigate('SignupVerifyEmail',{email});
+            }else{
+                console.log(response.data);
+            }
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.logoWrapper}>
@@ -41,14 +63,14 @@ export default function SignupScreen({navigation}:any) {
                     />
                 </View>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('SignupVerifyEmail')}
+                    onPress={() => handleRegister()}
                     style={styles.loginButton}>
                     <Text style={styles.loginText}>Register</Text>
                 </TouchableOpacity>
                 <Text style={styles.separateText}>OR</Text>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('Login')}
-                    style={{...styles.loginButton,backgroundColor:COLORS.primary}}>
+                    onPress={() => navigation.navigate('Login')}
+                    style={{...styles.loginButton, backgroundColor: COLORS.primary}}>
                     <Text style={styles.loginText}>Already have an account?</Text>
                 </TouchableOpacity>
             </View>
@@ -58,16 +80,16 @@ export default function SignupScreen({navigation}:any) {
 const styles = StyleSheet.create({
     iconOuter: {
         backgroundColor: COLORS.darkGray,
-        width:50,
-        height:50,
-        borderRadius:50,
-        alignItems:'center',
-        justifyContent:'center'
+        width: 50,
+        height: 50,
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     socialLoginWrapper: {
         flexDirection: 'row',
-        marginTop:20,
-        justifyContent:'space-around'
+        marginTop: 20,
+        justifyContent: 'space-around'
     },
     separateText: {
         textAlign: 'center',

@@ -3,9 +3,32 @@ import {COLORS} from "@/constants/CollorPallet";
 import {Icon, TextInput} from "react-native-paper";
 import {useState} from "react";
 
+import axios from "axios";
+import getBaseUrl from "@/constants/BASEURL";
+
 const logo = require('../../../../assets/images/logo/logo-wattpad.png');
-export default function SignupVerifyEmailScreen({navigation}:any) {
+export default function SignupVerifyEmailScreen({navigation, route}:any) {
+    const {email}=route.params;
     const [otp, setOtp] = useState('');
+
+
+    const handleVerifyOtp = async () => {
+        try{
+            const response= await axios.post(`${getBaseUrl()}users/verify-otp`,{
+                username:email,
+                otp
+            });
+            if(response.status===201){
+                navigation.navigate('Login');
+            }else{
+                console.log(response.data);
+            }
+        }catch (e) {
+            console.log(e);
+        }
+    }
+
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.logoWrapper}>
@@ -23,7 +46,7 @@ export default function SignupVerifyEmailScreen({navigation}:any) {
                 <TouchableOpacity
                     onPress={()=>navigation.navigate('Signup')}
                     style={styles.forgotPasswordButton}>
-                    <Text style={styles.forgotPasswordText}>Change Email</Text>
+                    <Text style={styles.forgotPasswordText}>Change Email : {email}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={()=>{}}
@@ -31,7 +54,7 @@ export default function SignupVerifyEmailScreen({navigation}:any) {
                     <Text style={styles.forgotPasswordText}>(30) Resend email</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={()=>navigation.navigate('Process')}
+                    onPress={()=>handleVerifyOtp()}
                     style={styles.loginButton}>
                     <Text style={styles.loginText}>Verify</Text>
                 </TouchableOpacity>
