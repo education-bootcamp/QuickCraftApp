@@ -16,6 +16,8 @@ import ChangePasswordScreen from "@/components/ui/screen/security/ChangePassword
 import ResetPasswordVerifyEmailScreen from "@/components/ui/screen/security/ResetPasswordVerifyEmailScreen";
 import ResetPasswordScreen from "@/components/ui/screen/security/ResetPasswordScreen";
 import ProductDetailsScreen from "@/components/ui/screen/ProductDetailsScreen";
+import ProductUploadScreen from "@/components/ui/screen/other/ProductUploadScreen";
+import CheckoutPageScreen from "@/components/ui/screen/home/CheckoutPageScreen";
 
 const Stack = createStackNavigator();
 export default function StackNavigator() {
@@ -42,6 +44,9 @@ export default function StackNavigator() {
             <Stack.Screen name={'Profile'}
                           options={{title: 'Profile'}}
                           component={ProfileScreen}/>
+            <Stack.Screen name={'ProductUpload'}
+                          options={{title: 'Admin Panel'}}
+                          component={ProductUploadScreen}/>
             <Stack.Screen name={'Settings'}
                           options={{title: 'Settings'}}
                           component={SettingsScreen}/>
@@ -69,6 +74,9 @@ export default function StackNavigator() {
                 <Stack.Screen name={'ProductDetails'}
                           options={{title: 'Product Details'}}
                           component={ProductDetailsScreen}/>
+            <Stack.Screen name={'Checkout'}
+                          options={{title: 'Checkout Product'}}
+                          component={CheckoutPageScreen}/>
 
         </Stack.Navigator>
     )

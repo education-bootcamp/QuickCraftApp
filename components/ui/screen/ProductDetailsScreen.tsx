@@ -9,14 +9,11 @@ import CartGridViewWidget from "@/components/ui/screen/home/widget/CartGridViewW
 import {COLORS} from "@/constants/CollorPallet";
 import ReviewWidget from "@/components/ui/screen/home/widget/ReviewWidget";
 
-export default function ProductDetailsScreen() {
-    const productImages = [
-        {uri: 'https://wish.lk/wp-content/uploads/2024/09/iPhone-16-Pro2.png'},
-        {uri: 'https://d1ugx7ghroxfae.cloudfront.net/products/thumbnails/VVPHY034128GBGGRN.webp'},
-        {uri: 'https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/Apple%20i%20phone%20Red--1693475773.jpg'}
-    ];
-    const [primaryImage, setPrimaryImage] = useState(productImages[0].uri);
+export default function ProductDetailsScreen({navigation, route}:any) {
+const {data}=route.params;
+    const [primaryImage, setPrimaryImage] = useState(data.images[0]);
     const [status, setStatus] = useState(true);
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.top}>
@@ -25,12 +22,12 @@ export default function ProductDetailsScreen() {
                            style={styles.image} resizeMode={'contain'}/>
                 </View>
                 <View style={styles.productImageList}>
-                    {productImages.map((item, index) => (
+                    {data.images.map((item, index) => (
                         <TouchableOpacity
                             key={index} style={{width: 80, height: 60, borderWidth: 1, borderRadius: 5}}
-                            onPress={() => setPrimaryImage(item.uri)}
+                            onPress={() => setPrimaryImage(item)}
                         >
-                            <Image source={{uri: item.uri}}
+                            <Image source={{uri: item}}
                                    style={styles.displayImage} resizeMode={'contain'}/>
                         </TouchableOpacity>
                     ))}
@@ -38,26 +35,26 @@ export default function ProductDetailsScreen() {
 
             </View>
             <View style={{}}>
-                <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 5}}>iPhone 14 Plus 128GB RED MOBILE PHONE |
-                    MySoftlogic.lk</Text>
-                <Text style={{}}>The Lenovo™ Tab M8, your best companion device with stunning performance and stylish
-                    design. The device that everyone wants to have.</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 20, marginTop: 5}}>{data.name}</Text>
+                <Text style={{}}>{data.description}</Text>
                 <View style={{marginTop: 10, flexDirection: 'row'}}>
-                    <Text style={{color: COLORS.orange, fontWeight: 'bold', fontSize: 15, marginRight: 10}}>2500
+                    <Text style={{color: COLORS.orange, fontWeight: 'bold', fontSize: 15, marginRight: 10}}>{data.actualPrice}
                         UAD</Text>
                     <Text style={{
                         color: COLORS.orange,
                         fontWeight: 'bold',
                         fontSize: 15,
                         textDecorationLine: 'line-through'
-                    }}>3000 UAD</Text>
+                    }}>{data.displayPrice} UAD</Text>
                 </View>
             </View>
             <View style={{marginTop: 20, flexDirection: 'row', justifyContent: 'flex-end'}}>
                 <TouchableOpacity style={{...styles.btn, backgroundColor: COLORS.primary, marginRight: 10}}>
                     <Icon size={20} source={'cart'} color={COLORS.light}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={{...styles.btn, backgroundColor: COLORS.blue}}>
+                <TouchableOpacity
+                    onPress={()=>navigation.navigate('Checkout',{amount:data.actualPrice})}
+                    style={{...styles.btn, backgroundColor: COLORS.blue}}>
                     <Text style={{color: COLORS.light}}>Buy Now</Text>
                 </TouchableOpacity>
             </View>

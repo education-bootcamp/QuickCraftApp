@@ -1,24 +1,51 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {COLORS} from "@/constants/CollorPallet";
 import {Icon} from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import getBaseUrl from "@/constants/BASEURL";
 
-export default function ProductListViewWidget({navigation}:any) {
+export default function ProductListViewWidget({navigation, data}:any) {
+    const makeBookmark = async () => {
+        try {
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                alert('please login');
+                return;
+            }
+            const response = await axios.post(`${getBaseUrl()}bookmarks/make-bookmark`, {
+                productId: data._id, productName: data?.name
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
+            console.log(response);
+            alert('saved!');
+        } catch (e) {
+            console.log(e)
+        }
+    }
     return (
         <TouchableOpacity
-            onPress={()=>navigation.navigate('ProductDetails')}
+            onPress={()=>navigation.navigate('ProductDetails',{data:data})}
             style={styles.container}>
             <View style={styles.imageView}>
-                <TouchableOpacity style={styles.bookmarkButton}>
+                <TouchableOpacity
+                    onPress={() => {
+                        makeBookmark()
+                    }}
+                    style={styles.bookmarkButton}>
                     <Icon size={20} source={'heart-outline'} color={COLORS.light}/>
                 </TouchableOpacity>
                 <Image
-                    source={{uri: 'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-madebymath-90946.jpg&fm=jpg'}}
+                    source={{uri: data.images[0]}}
                     style={styles.image} resizeMode={'contain'}/>
             </View>
             <View style={{flex:1, padding:5}}>
-                <Text style={styles.name}>Product Photos, Download The...</Text>
-                <Text style={styles.price}>LKR 150,000</Text>
-                <Text style={styles.qty}>QTY : 15</Text>
+                <Text style={styles.name}>{data.name}</Text>
+                <Text style={styles.price}>{data.actualPrice}</Text>
+                <Text style={styles.qty}>QTY : {data.qty}</Text>
             </View>
         </TouchableOpacity>
     )

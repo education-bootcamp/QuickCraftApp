@@ -7,7 +7,7 @@ import axios from "axios";
 import getBaseUrl from "@/constants/BASEURL";
 
 const logo = require('../../../../assets/images/logo/logo-wattpad.png');
-export default function SignupVerifyEmailScreen({navigation, route}:any) {
+    export default function SignupVerifyEmailScreen({navigation, route}:any) {
     const {email}=route.params;
     const [otp, setOtp] = useState('');
 
